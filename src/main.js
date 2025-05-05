@@ -13,5 +13,4 @@ program
         simpleCommit();
         return;
     });
-
 program.parse(process.argv);
