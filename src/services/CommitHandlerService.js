@@ -25,7 +25,16 @@ class CommitHandlerService {
 
         try {
             status = await this.git.status();
-            filesList = status.not_added;
+
+            filesList = [
+                ...status.not_added.map(file => ({ name: `Not added: ${file}`, value: file })),
+                ...status.modified.map(file => ({ name: `Modified: ${file}`, value: file })),
+                ...status.deleted.map(file => ({ name: `Deleted: ${file}`, value: file })),
+                ...status.renamed.map(file => ({ name: `Renamed: ${file.from} -> ${file.to}`, value: file.to })),
+                ...status.created.map(file => ({ name: `Created: ${file}`, value: file })),
+                ...status.conflicted.map(file => ({ name: `Conflicted: ${file}`, value: file })),
+                ...status.staged.map(file => ({ name: `Staged: ${file}`, value: file }))
+            ];
 
             if (filesList.length === 0) {
                 console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkYellow("⚠  Warning: ")}${chalkWhite("No staged files found for commit.")}\n`);
@@ -34,19 +43,17 @@ class CommitHandlerService {
 
             // Create file prompt
             const selectedFiles = await createFilePrompt(filesList);
-            
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")}${selectedFiles.length > 1 ? chalkWhite(" Summarize what you did in these files:") : chalkWhite(" Summarize what you did in this file:")}`)
-            
+
             // Create summary prompt
             const summary = await createMessagePrompt();
-
             console.log(chalkGrey("  │"));
-            
+
             // API Request with data
-            const res = await aiService.send(filesList, summary);
+            const res = await aiService.send(selectedFiles, summary);
 
             // Create commit
-            await commitService.create(res, filesList);
+            await commitService.create(res, selectedFiles);
 
         } catch (err) {
             if (err.message.includes("not a git repository")) {

@@ -15,7 +15,7 @@ export async function createMessagePrompt() {
                     error: (text) => {
                         return `  ${chalkGrey("│")}\n  ${chalkGrey("└─")}${chalkYellow("⚠ ")}${chalkWhite("This field is required.")}`;
                     },
-                    answer: chalkWhite
+                    answer: chalkGrey
                 }
             }
         }

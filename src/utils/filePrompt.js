@@ -8,16 +8,16 @@ export async function createFilePrompt(filesList) {
         {
             type: 'checkbox',
             name: 'selectedFiles',
-            message: `\n  ${chalkPurple("◆")} Choose the files you want to commit:\n${chalkGrey("  │")}${chalkGrey("  └─")}${chalkYellow("★")}${" Tip: Use ↑ ↓ to move"}\n${chalkGrey("  │")}`,
+            message: `${chalkGrey(" │")}\n  ${chalkPurple("◆")} Choose the files you want to commit:\n${chalkGrey("  │")}${chalkGrey("  └─")}${chalkYellow("★")}${" Tip: Use ↑ ↓ to move"}\n${chalkGrey("  │")}`,
             prefix: '',
             choices: filesList.map(file => ({
-                name: file,
-                value: file
+                name: file.name,
+                value: file.value
             })),
             theme: {
                 icon: {
-                    checked: `${chalkGrey(" ├─")}${chalkPurple("◆")}`,
-                    unchecked: `${chalkGrey(" ├─")}${chalkPurple("◇")}`,
+                    checked: `${chalkGrey(" ├─")}${chalkPurple("◆ ")}`,
+                    unchecked: `${chalkGrey(" ├─")}${chalkPurple("◇ ")}`,
                     cursor: " "
                 },
                 prefix: '',
@@ -26,7 +26,7 @@ export async function createFilePrompt(filesList) {
                     disabledChoice: true,
                     answer: chalkPurple,
                     renderSelectedChoices: (choices) => {
-                        const lines = choices.map(c => `  ${chalkGrey("├─")}${chalkPurple("◆")} ${chalkWhite(c.name || c.value)}`);
+                        const lines = choices.map(c => `  ${chalkGrey("├─")}${chalkPurple("◆")} ${chalkGrey(c.name || c.value)}`);
                         return choices <= 0 ? '' : `\n${lines.join("\n")}`;
                     }
                 },
