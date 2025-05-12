@@ -3,6 +3,8 @@
 
 # 📦 Verus CLI - O Assistente de Commits com IA
 
+[🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md)
+
 **Verus** é uma ferramenta de linha de comando (CLI) que integra inteligência artificial para gerar mensagens de commit automaticamente em seus repositórios Git. A partir de um breve resumo das alterações feitas nos arquivos, o Verus utiliza a API da OpenAI para sugerir uma mensagem formatada, como:
 
 `✨ feat(auth/signup): implemented email verification`
