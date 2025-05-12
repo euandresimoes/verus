@@ -4,8 +4,6 @@
 
 [🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md)
 
-[🐈‍⬛ Repository](https://github.com/euandresimoes/verus)
-
 **Verus** is a command-line tool (CLI) that integrates AI to automatically generate commit messages for your Git repositories. From a brief description of the changes made to the files, Verus uses OpenAI's API to suggest a formatted commit message, such as:
 
 `✨ feat(auth/signup): implemented email verification`
