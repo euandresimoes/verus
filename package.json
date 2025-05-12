@@ -1,0 +1,29 @@
+{
+  "name": "verus-cli",
+  "version": "1.0.1",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start:dev": "NODE_NO_WARNINGS=1 nodemon src/main.js",
+    "start": "NODE_NO_WARNINGS=1 node src/main.js"
+  },
+  "bin": {
+    "verus": "src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@inquirer/prompts": "^7.5.0",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "enquirer": "^2.4.1",
+    "inquirer": "^12.6.0",
+    "openai": "^4.97.0",
+    "os": "^0.1.2",
+    "punycode": "^2.3.1",
+    "simple-git": "^3.27.0",
+    "spinnies": "^0.5.1"
+  }
+}
