@@ -4,6 +4,8 @@
 
 [🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md)
 
+[🐈‍⬛ Repository](https://github.com/euandresimoes/verus)
+
 **Verus** is a command-line tool (CLI) that integrates AI to automatically generate commit messages for your Git repositories. From a brief description of the changes made to the files, Verus uses OpenAI's API to suggest a formatted commit message, such as:
 
 `✨ feat(auth/signup): implemented email verification`
@@ -57,18 +59,3 @@ npm install -g verus-cli
    ```
 
 5. **Commit Ready:** Once confirmed, Verus automatically creates the commit with the generated message.
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License.  
-Feel free to use, modify, and distribute it as you wish — just give proper credit. 🤝
-
-See the full license in the [LICENSE](./LICENSE) file.
-
----
-
-## 🤝 Contributions
-
-Feel free to open a pull request or report any issues if you’d like to contribute to the development of Verus. 🚀
