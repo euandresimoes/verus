@@ -44,7 +44,7 @@ npm install -g verus-cli
 
 ---
 
-## 📝 Usage Flow
+## ▶️ Usage Flow
 
 1. **File Selection:** Verus will list the modified files, and you will select which ones you want to include in the commit.  
 2. **Describe Your Changes:** After selecting the files, you will provide a brief summary of the changes made.  
@@ -54,7 +54,16 @@ npm install -g verus-cli
    🧪 test(utils/date): added unit tests for formatDate function
    ```
 
-5. **Commit Ready:** Once confirmed, your commit message is ready to be used.
+5. **Commit Ready:** Once confirmed, Verus automatically creates the commit with the generated message.
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License.  
+Feel free to use, modify, and distribute it as you wish — just give proper credit. 🤝
+
+See the full license in the [LICENSE](./LICENSE) file.
 
 ---
 
