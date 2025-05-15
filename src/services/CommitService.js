@@ -58,7 +58,7 @@ class CommitService {
             for (const file of filesList) {
                 try {
                     await this.git.add(file);
-                    console.log(`${chalkGrey("  ├───")}${chalkPurple("ℹ")} ${chalkWhite("Added:")}${chalkGrey(` ${file}`)}`);
+                    console.log(`${chalkGrey("  ├───")}${chalkGreen("◆")} ${chalkWhite("Added:")}${chalkGrey(` ${file}`)}`);
                 } catch (addError) {
                     console.error(`${chalkGrey("  │  ├─")}${chalkRed("✖")} ${chalkWhite(`Failed to add: ${file}`)}`);
                     console.error(`${chalkGrey("  │  └─")}${chalkRed("Error: ")} ${chalkWhite(addError.message)}`);
@@ -70,7 +70,7 @@ class CommitService {
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Creating commit...")}`);
             try {
                 const commitResult = await this.git.commit(commitMessage);
-                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkGreen("✓")} ${chalkWhite("Commit created successfully!")}`);
+                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkGreen("◆")} ${chalkWhite("Commit created successfully!")}`);
                 
                 // Exibir mais detalhes sobre o commit
                 if (commitResult && commitResult.commit) {
