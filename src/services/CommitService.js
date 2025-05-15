@@ -1,6 +1,6 @@
 import simpleGit from "simple-git";
 import inquirer from "inquirer";
-import { chalkGrey, chalkPurple, chalkWhite, chalkRed, chalkGreen } from "../utils/consoleColors.js";
+import { chalkGrey, chalkPurple, chalkWhite, chalkRed, chalkGreen, chalkYellow } from "../utils/consoleColors.js";
 
 class CommitService {
     constructor() {
@@ -70,11 +70,11 @@ class CommitService {
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Creating commit...")}`);
             try {
                 const commitResult = await this.git.commit(commitMessage);
-                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkGreen("◆")} ${chalkWhite("Commit created successfully!")}`);
+                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("◆")} ${chalkWhite("Commit created successfully!")}`);
                 
                 // Exibir mais detalhes sobre o commit
                 if (commitResult && commitResult.commit) {
-                    console.log(`${chalkGrey("        └─")}${chalkPurple("ℹ")} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}\n`);
+                    console.log(`${chalkGrey("        └─")}${chalkYellow("◆")} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}\n`);
                 }
                 
                 return commitResult;
