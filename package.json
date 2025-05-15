@@ -23,7 +23,6 @@
     "openai": "^4.97.0",
     "os": "^0.1.2",
     "punycode": "^2.3.1",
-    "simple-git": "^3.27.0",
-    "spinnies": "^0.5.1"
+    "simple-git": "^3.27.0"
   }
 }

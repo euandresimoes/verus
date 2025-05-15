@@ -1,17 +1,9 @@
 import simpleGit from "simple-git";
-import Spinnies from "spinnies";
 import { createFilePrompt } from "../utils/filePrompt.js";
 import { chalkGrey, chalkPurple, chalkYellow, chalkWhite, chalkRed } from "../utils/consoleColors.js";
 import { createMessagePrompt } from "../utils/messagePrompt.js";
 import { aiService } from "./AiService.js";
 import { commitService } from "./CommitService.js";
-
-// Spinner Animation
-const spinner = {
-    interval: 160,
-    frames: [chalkPurple("  ◐"), chalkPurple("  ◓"), chalkPurple("  ◑"), chalkPurple("  ◒")]
-}
-const spinnies = new Spinnies({ spinner });
 
 class CommitHandlerService {
     constructor() {
