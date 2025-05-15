@@ -52,13 +52,13 @@ class CommitService {
         try {
             // Primeiro, verificamos o status atual
             const status = await this.git.status();
-            console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("◆")} ${chalkWhite("Adding files to staging area...")}`);
+            console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Adding files to staging area...")}`);
             
             // Execute git add para cada arquivo individualmente para evitar problemas
             for (const file of filesList) {
                 try {
                     await this.git.add(file);
-                    console.log(`${chalkGrey("  │  ├─")}${chalkGreen("✓")} ${chalkWhite(`Added: ${file}`)}`);
+                    console.log(`${chalkGrey("  │  └─")}${chalkGreen("✓")} ${chalkWhite(`Added: ${file}`)}`);
                 } catch (addError) {
                     console.error(`${chalkGrey("  │  ├─")}${chalkRed("✖")} ${chalkWhite(`Failed to add: ${file}`)}`);
                     console.error(`${chalkGrey("  │  └─")}${chalkRed("Error: ")} ${chalkWhite(addError.message)}`);
