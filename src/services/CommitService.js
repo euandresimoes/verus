@@ -22,7 +22,7 @@ class CommitService {
             {
                 type: "confirm",
                 name: "confirmCommit",
-                message: `${chalkGrey("├─")}${chalkPurple("◆")}  Confirm this commit?`,
+                message: `${chalkGrey("├─")}${chalkPurple("◆")} Confirm this commit?`,
                 choices: [
                     {
                         name: `Yes`,
@@ -58,7 +58,7 @@ class CommitService {
             for (const file of filesList) {
                 try {
                     await this.git.add(file);
-                    console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkGrey(`Added: ${file}`)}`);
+                    console.log(`${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkGrey(`Added: ${file}`)}`);
                 } catch (addError) {
                     console.error(`${chalkGrey("  │  ├─")}${chalkRed("✖")} ${chalkWhite(`Failed to add: ${file}`)}`);
                     console.error(`${chalkGrey("  │  └─")}${chalkRed("Error: ")} ${chalkWhite(addError.message)}`);
