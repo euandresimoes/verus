@@ -22,7 +22,7 @@ class CommitService {
             {
                 type: "confirm",
                 name: "confirmCommit",
-                message: `${chalkGrey("└─")}${chalkPurple("◆")}  Confirm this commit?`,
+                message: `${chalkGrey("├─")}${chalkPurple("◆")}  Confirm this commit?`,
                 choices: [
                     {
                         name: `Yes`,
@@ -52,7 +52,7 @@ class CommitService {
         try {
             // Primeiro, verificamos o status atual
             const status = await this.git.status();
-            console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Adding files to staging area...")}`);
+            console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("◆")} ${chalkWhite("Adding files to staging area...")}`);
             
             // Execute git add para cada arquivo individualmente para evitar problemas
             for (const file of filesList) {
@@ -74,7 +74,7 @@ class CommitService {
                 
                 // Exibir mais detalhes sobre o commit
                 if (commitResult && commitResult.commit) {
-                    console.log(`${chalkGrey("  │  └─")}${chalkPurple("ℹ")} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}`);
+                    console.log(`${chalkGrey("        └─")}${chalkPurple("ℹ")} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}\n`);
                 }
                 
                 return commitResult;
