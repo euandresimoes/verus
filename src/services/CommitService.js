@@ -58,7 +58,7 @@ class CommitService {
             for (const file of filesList) {
                 try {
                     await this.git.add(file);
-                    console.log(`${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkGrey(`Added: ${file}`)}`);
+                    console.log(`${chalkGrey("  ├───")}${chalkPurple("◆")} ${chalkWhite("Added:")}${chalkGrey(` ${file}`)}`);
                 } catch (addError) {
                     console.error(`${chalkGrey("  │  ├─")}${chalkRed("✖")} ${chalkWhite(`Failed to add: ${file}`)}`);
                     console.error(`${chalkGrey("  │  └─")}${chalkRed("Error: ")} ${chalkWhite(addError.message)}`);
