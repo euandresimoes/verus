@@ -24,8 +24,6 @@ class CommitHandlerService {
                 ...status.deleted.map(file => ({ name: `Deleted: ${file}`, value: file })),
                 ...status.renamed.map(file => ({ name: `Renamed: ${file.from} -> ${file.to}`, value: file.to })),
                 ...status.created.map(file => ({ name: `Created: ${file}`, value: file })),
-                ...status.conflicted.map(file => ({ name: `Conflicted: ${file}`, value: file })),
-                ...status.staged.map(file => ({ name: `Staged: ${file}`, value: file }))
             ];
 
             if (filesList.length === 0) {
