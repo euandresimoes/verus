@@ -1,4 +1,6 @@
 import simpleGit from "simple-git";
+import fs from 'fs';
+import path from 'path';
 import { createFilePrompt } from "../utils/filePrompt.js";
 import { chalkGrey, chalkPurple, chalkYellow, chalkWhite, chalkRed } from "../utils/consoleColors.js";
 import { createMessagePrompt } from "../utils/messagePrompt.js";
@@ -7,8 +9,27 @@ import { commitService } from "./CommitService.js";
 
 class CommitHandlerService {
     constructor() {
-        // Initialize simpleGit to interact with the local Git repository
-        this.git = simpleGit();
+        // Encontrar a raiz do repositório git
+        this.gitRoot = this.findGitRoot();
+
+        // Initialize simpleGit to interact with the local Git repository from root
+        this.git = simpleGit({
+            baseDir: this.gitRoot
+        });
+    }
+
+    findGitRoot() {
+        let currentDir = process.cwd();
+
+        while (currentDir !== path.dirname(currentDir)) {
+            if (fs.existsSync(path.join(currentDir, '.git'))) {
+                return currentDir;
+            }
+            currentDir = path.dirname(currentDir);
+        }
+
+        // Se não encontrar .git, usar o diretório atual
+        return process.cwd();
     }
 
     async start() {
@@ -17,7 +38,6 @@ class CommitHandlerService {
 
         try {
             status = await this.git.status();
-
             filesList = [
                 ...status.not_added.map(file => ({ name: `Not added: ${file}`, value: file })),
                 ...status.modified.map(file => ({ name: `Modified: ${file}`, value: file })),
@@ -33,7 +53,7 @@ class CommitHandlerService {
 
             // Create file prompt
             const selectedFiles = await createFilePrompt(filesList);
-            console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")}${selectedFiles.length > 1 ? chalkWhite(" Summarize what you did in these files:") : chalkWhite(" Summarize what you did in this file:")}`)
+            console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")}${selectedFiles.length > 1 ? chalkWhite(" Summarize what you did in these files:") : chalkWhite(" Summarize what you did in this file:")}`);
 
             // Create summary prompt
             const summary = await createMessagePrompt();
@@ -44,7 +64,6 @@ class CommitHandlerService {
 
             // Create commit
             await commitService.create(res, selectedFiles);
-
         } catch (err) {
             if (err.message.includes("not a git repository")) {
                 console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkYellow("⚠  Warning: ")}${chalkWhite("Git repository not found. Initialize one with 'git init'.")}\n`);
