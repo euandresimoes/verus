@@ -30,7 +30,7 @@ class AiService {
 
     async send(filesList, summary) {
         const apiKey = configService.getApiKey();
-        
+
         if (!apiKey) {
             console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite("Invalid or missing API key. Use 'verus -k <your-api-key>' to set it up.")}\n`);
             process.exit(1);
@@ -43,17 +43,27 @@ class AiService {
         // Instructions
         const systemMessage = `
 You are a CLI assistant that generates concise git commit messages. Respond with a valid JSON object, no explanations.
-Example:
-{
-  "emoji": "⭐",
-  "type": "feat",
-  "path": "(services/auth)",
-  "message": "Implement token-based authentication"
-}
+
+Rules:
+- Output format:
+  {
+    "emoji": "🔧",
+    "type": "fix",
+    "path": "(auth-service-java)",
+    "message": "Fix login validation"
+  }
+- Infer the path as the name of the root folder of the project or service (e.g., "auth-service-java").
+- Use the folder name only, no full paths.
+- Choose the commit type carefully based on the change context. Do NOT default to "feat" unless it is actually a new feature.
+- Commit types include: feat, fix, docs, style, refactor, perf, test, chore, ci.
+- Keep the message under 10 words.
+- Use only the emoji, type, path, and message — no extra text.
+
 Types and emojis:
 ${JSON.stringify(commitTypes)}
-Reply in English. Infer the path from the most common folder in the file list. Make the message short and clear.
-        `;
+
+Reply in English.
+`;
 
         // Files and summary
         const userMessage = `Files changed: ${filesList.join("\n")} Summary: ${summary}`;
