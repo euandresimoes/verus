@@ -5,13 +5,13 @@ process.removeAllListeners('warning');
 process.on('warning', (warning) => {
     if (warning.name === 'DeprecationWarning' &&
         warning.message) {
-            return;
-        }
+        return;
+    }
 });
 
 import { Command } from "commander";
-import { commitHandlerService } from "./services/CommitHandlerService.js";
-import { configService } from "./services/ConfigService.js";
+import { configService } from "./modules/cli-config/config.service.js";
+import { commitHandlerService } from "./modules/commit/commit-handler.service.js";
 
 const program = new Command();
 
