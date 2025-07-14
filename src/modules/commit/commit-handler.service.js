@@ -1,11 +1,11 @@
-import simpleGit from "simple-git";
+import simpleGit from 'simple-git';
 import fs from 'fs';
 import path from 'path';
-import { createFilePrompt } from "../../modules/commit/file-prompt.js";
-import { chalkGrey, chalkPurple, chalkYellow, chalkWhite, chalkRed } from "../../utils/console-colors.js";
-import { createMessagePrompt } from "../../utils/message-prompt.js";
-import { aiService } from "./ai.service.js";
-import { commitService } from "../../modules/commit/commit.service.js";
+import { createFilePrompt } from '../../modules/commit/file-prompt.js';
+import { chalkGrey, chalkPurple, chalkYellow, chalkWhite, chalkRed } from '../../utils/console-colors.js';
+import { createMessagePrompt } from '../../utils/message-prompt.js';
+import { aiService } from './ai.service.js';
+import { commitService } from '../../modules/commit/commit.service.js';
 
 class CommitHandlerService {
     constructor() {
@@ -47,17 +47,17 @@ class CommitHandlerService {
             ];
 
             if (filesList.length === 0) {
-                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkYellow("⚠  Warning: ")}${chalkWhite("No staged files found for commit.")}\n`);
+                console.log(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkYellow('⚠  Warning: ')}${chalkWhite('No staged files found for commit.')}\n`);
                 process.exit(1);
             }
 
             // Create file prompt
             const selectedFiles = await createFilePrompt(filesList);
-            console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")}${selectedFiles.length > 1 ? chalkWhite(" Summarize what you did in these files:") : chalkWhite(" Summarize what you did in this file:")}`);
+            console.log(`${chalkGrey('  │')}\n${chalkGrey('  ├─')}${chalkPurple('◆')}${selectedFiles.length > 1 ? chalkWhite(' Summarize what you did in these files:') : chalkWhite(' Summarize what you did in this file:')}`);
 
             // Create summary prompt
             const summary = await createMessagePrompt();
-            console.log(chalkGrey("  │"));
+            console.log(chalkGrey('  │'));
 
             // API Request with data
             const res = await aiService.send(selectedFiles, summary);
@@ -65,20 +65,20 @@ class CommitHandlerService {
             // Create commit
             await commitService.create(res, selectedFiles);
         } catch (err) {
-            if (err.message.includes("not a git repository")) {
-                console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkYellow("⚠  Warning: ")}${chalkWhite("Git repository not found. Initialize one with 'git init'.")}\n`);
+            if (err.message.includes('not a git repository')) {
+                console.log(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkYellow('⚠  Warning: ')}${chalkWhite(`Git repository not found. Initialize one with 'git init'.`)}\n`);
                 process.exit(1);
-            } else if (err.message.includes("User force closed")) {
-                console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite("Operation cancelled by user.")}\n`);
+            } else if (err.message.includes('User force closed')) {
+                console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖  Error: ')}${chalkWhite('Operation cancelled by user.')}\n`);
                 process.exit(1);
-            } else if (err.message.includes("environment variable is missing or empty")) {
-                console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite("Use 'verus -k <your-api-key>' to set it up.")}\n`);
+            } else if (err.message.includes('environment variable is missing or empty')) {
+                console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖  Error: ')}${chalkWhite(`Use 'verus -k <your-api-key>' to set it up.`)}\n`);
                 process.exit(1);
-            } else if (err.message.includes("Incorrect API key provided")) {
-                console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite("Incorrect API Key..")}\n`);
+            } else if (err.message.includes('Incorrect API key provided')) {
+                console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖  Error: ')}${chalkWhite('Incorrect API Key..')}\n`);
                 process.exit(1);
             } else {
-                console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite(err.message)}\n`);
+                console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖  Error: ')}${chalkWhite(err.message)}\n`);
                 process.exit(1);
             }
         }
