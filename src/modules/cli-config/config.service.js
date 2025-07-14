@@ -1,11 +1,11 @@
-import fs from "fs";
-import path from "path";
-import os from "os";
-import { chalkGrey, chalkPurple, chalkRed, chalkWhite } from "../../utils/console-colors.js";
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
+import { chalkGrey, chalkPurple, chalkRed, chalkWhite } from '../../utils/console-colors.js';
 
-export const configPath = os.platform() === "win32"
-    ? path.join(os.homedir(), "AppData", "Roaming", "verus", "config.json")
-    : path.join(os.homedir(), ".config", "verus", "config.json");
+export const configPath = os.platform() === 'win32'
+    ? path.join(os.homedir(), 'AppData', 'Roaming', 'verus', 'config.json')
+    : path.join(os.homedir(), '.config', 'verus', 'config.json');
 
 class ConfigService {
     async setApiKey(apiKey) {
@@ -20,10 +20,10 @@ class ConfigService {
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 
         if (fs.existsSync(configPath)) {
-            console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("◆")} ${chalkWhite("API Key saved! Use 'verus' to start using the CLI.")}\n`);
+            console.log(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkPurple('◆')} ${chalkWhite(`API Key saved! Use 'verus' to start using the CLI.`)}\n`);
         } else {
-            console.error("Failed to create the file.");
-            console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖  Error: ")}${chalkWhite("Failed to save the API Key.")}\n`);
+            console.error('Failed to create the file.');
+            console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖  Error: ')}${chalkWhite('Failed to save the API Key.')}\n`);
         }
     }
 
