@@ -8,7 +8,7 @@ class CommitService {
     constructor() {
         // Encontrar a raiz do repositório git
         this.gitRoot = this.findGitRoot();
-        
+
         this.git = simpleGit({
             baseDir: this.gitRoot,
             binary: 'git',
@@ -19,23 +19,23 @@ class CommitService {
 
     findGitRoot() {
         let currentDir = process.cwd();
-        
+
         while (currentDir !== path.dirname(currentDir)) {
             if (fs.existsSync(path.join(currentDir, '.git'))) {
                 return currentDir;
             }
             currentDir = path.dirname(currentDir);
         }
-        
+
         // Se não encontrar .git, usar o diretório atual
         return process.cwd();
     }
 
     async create(res, filesList) {
-        const commitMessage = `${res.emoji} ${res.type}(${res.path}): ${res.message}`;
-        console.log(`${chalkGrey("  ├─")}${chalkPurple("◆")} ${res.emoji} ${chalkWhite(res.type)}(${chalkWhite(res.path)}): ${chalkWhite(res.message)}`);
+        const commitMessage = `${res.emoji} ${res.type}${res.path ? `(${res.path})` : ''}: ${res.message}`;
+        console.log(`${chalkGrey("  ├─")}${chalkPurple("◆")} ${res.emoji} ${chalkWhite(res.type)}${res.path ? `(${chalkWhite(res.path)})` : ""}: ${chalkWhite(res.message)}`);
         console.log(`${chalkGrey("  │")}`);
-        
+
         // Confirmação do usuário
         const prompt = await inquirer.prompt([
             {
@@ -62,17 +62,17 @@ class CommitService {
                 }
             }
         ]);
-        
+
         if (!prompt.confirmCommit) {
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("ℹ")} ${chalkWhite("Commit cancelled by user.")}`);
             process.exit(0);
         }
-        
+
         try {
             // Primeiro, verificamos o status atual
             const status = await this.git.status();
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Adding files to staging area...")}`);
-            
+
             // Filtrar apenas arquivos que existem - CORREÇÃO PRINCIPAL AQUI
             const existingFiles = filesList.filter(file => {
                 // Usar this.gitRoot como base, não process.cwd()
@@ -100,7 +100,7 @@ class CommitService {
             } catch (addError) {
                 // Se falhar, tentar um por um
                 console.log(`${chalkGrey("  ├───")}${chalkYellow("⚠")} ${chalkWhite("Bulk add failed, trying individually...")}`);
-                
+
                 for (const file of existingFiles) {
                     try {
                         await this.git.add(file);
@@ -111,30 +111,30 @@ class CommitService {
                     }
                 }
             }
-            
+
             // Verificar se pelo menos um arquivo foi adicionado
             const newStatus = await this.git.status();
             if (newStatus.staged.length === 0) {
                 console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkYellow("⚠")} ${chalkWhite("No files were staged. Nothing to commit.")}`);
                 process.exit(0);
             }
-            
+
             // Agora realizamos o commit
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Creating commit...")}`);
             try {
                 const commitResult = await this.git.commit(commitMessage);
                 console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("◆")} ${chalkWhite("Commit created successfully!")}`);
-                
+
                 // Exibir mais detalhes sobre o commit
                 if (commitResult && commitResult.commit) {
                     console.log(`${chalkGrey("        └─")}${chalkYellow("◆")} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}\n`);
                 }
-                
+
                 return commitResult;
             } catch (commitError) {
                 console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖")} ${chalkWhite("Failed to create commit")}`);
                 console.error(`${chalkGrey("     └─")}${chalkRed("Error: ")} ${chalkWhite(commitError.message)}`);
-                
+
                 // Tentar commit sem a opção de emoji (que pode causar problemas em alguns ambientes)
                 try {
                     console.log(`${chalkGrey("  │")}\n${chalkGrey("  ├─")}${chalkPurple("◆")} ${chalkWhite("Trying alternative commit format...")}`);
@@ -149,7 +149,7 @@ class CommitService {
             }
         } catch (error) {
             console.error(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkRed("✖")} ${chalkWhite(`Error during git operations: ${error.message}`)}`);
-            
+
             // Exibir status do Git para diagnóstico
             try {
                 const status = await this.git.status();
@@ -160,11 +160,11 @@ class CommitService {
             } catch (statusError) {
                 console.error(`${chalkGrey("  │  └─")}${chalkRed("✖")} ${chalkWhite("Could not get Git status")}`);
             }
-            
+
             // Sugerir git commit manual
             console.log(`${chalkGrey("  │")}\n${chalkGrey("  └─")}${chalkPurple("ℹ")} ${chalkWhite("Try running manually:")}`);
             console.log(`${chalkGrey("     └─")}${chalkWhite(`git add . && git commit -m "${commitMessage}"`)}`);
-            
+
             process.exit(1);
         }
     }
