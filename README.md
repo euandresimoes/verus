@@ -1,5 +1,7 @@
 <p align="center">
-  <!-- Outras badges -->
+  <a href="https://github.com/euandresimoes/verus">
+      <img src="https://img.shields.io/badge/🚀-REPO-FFE162?style=for-the-badge&labelColor=000000"/>
+  </a>
   <a href="https://www.npmjs.com/package/verus-cli">
     <img src="https://img.shields.io/npm/v/verus-cli?label=%F0%9F%93%A6+NPM&labelColor=black&color=%233F0071&style=for-the-badge"/>
   </a>
@@ -13,7 +15,7 @@
 
 # 📦 Verus CLI - The AI-Powered Commit Assistant
 
-[🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md) | 
+[🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇪🇸 ES](https://github.com/euandresimoes/verus/blob/master/README.es.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md) 
 
 **Verus** is a command-line tool (CLI) that integrates AI to automatically generate commit messages for your Git repositories. From a brief description of the changes made to the files, Verus uses OpenAI's API to suggest a formatted commit message, such as:
 
