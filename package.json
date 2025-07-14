@@ -1,7 +1,7 @@
 {
   "name": "verus-cli",
   "version": "1.0.14",
-  "description": "",
+  "description": "📦 AI-powered CLI tool that generates clear, formatted Git commit messages from your change summaries.",
   "main": "src/main.js",
   "scripts": {
     "start:dev": "NODE_NO_WARNINGS=1 nodemon src/main.js",
