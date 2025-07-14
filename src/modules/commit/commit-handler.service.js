@@ -9,7 +9,7 @@ import { commitService } from '../../modules/commit/commit.service.js';
 
 class CommitHandlerService {
     constructor() {
-        // Encontrar a raiz do repositório git
+        // Find the root of the git repository
         this.gitRoot = this.findGitRoot();
 
         // Initialize simpleGit to interact with the local Git repository from root
@@ -28,7 +28,7 @@ class CommitHandlerService {
             currentDir = path.dirname(currentDir);
         }
 
-        // Se não encontrar .git, usar o diretório atual
+        // If .git is not found, use the current directory
         return process.cwd();
     }
 

@@ -6,7 +6,7 @@ import { chalkGrey, chalkPurple, chalkYellow, chalkWhite, chalkRed, chalkGreen }
 
 class CommitService {
     constructor() {
-        // Encontrar a raiz do repositório git
+        // Find the root of the git repository
         this.gitRoot = this.findGitRoot();
 
         this.git = simpleGit({
@@ -27,7 +27,7 @@ class CommitService {
             currentDir = path.dirname(currentDir);
         }
 
-        // Se não encontrar .git, usar o diretório atual
+        // If .git is not found, use the current directory
         return process.cwd();
     }
 
@@ -36,7 +36,7 @@ class CommitService {
         console.log(`${chalkGrey('  ├─')}${chalkPurple('◆')} ${res.emoji} ${chalkWhite(res.type)}${res.path ? `(${chalkWhite(res.path)})` : ''}: ${chalkWhite(res.message)}`);
         console.log(`${chalkGrey('  │')}`);
 
-        // Confirmação do usuário
+        // User confirmation
         const prompt = await inquirer.prompt([
             {
                 type: 'confirm',
@@ -69,11 +69,11 @@ class CommitService {
         }
 
         try {
-            // Primeiro, verificamos o status atual
+            // First, we check the current status
             const status = await this.git.status();
             console.log(`${chalkGrey('  │')}\n${chalkGrey('  ├─')}${chalkPurple('◆')} ${chalkWhite('Adding files to staging area...')}`);
 
-            // Separar arquivos existentes e deletados
+            // Separate existing and deleted files
             const existingFiles = [];
             const deletedFiles = [];
 
@@ -84,7 +84,7 @@ class CommitService {
                 if (exists) {
                     existingFiles.push(file);
                 } else {
-                    // Verificar se o arquivo está no status como deletado
+                    // Check if the file is in the deleted status
                     const isDeleted = status.deleted.includes(file) ||
                         status.modified.includes(file) ||
                         status.not_added.includes(file);
@@ -98,7 +98,7 @@ class CommitService {
                 }
             }
 
-            // Adicionar arquivos existentes
+            // Add existing files
             if (existingFiles.length > 0) {
                 try {
                     await this.git.add(existingFiles);
@@ -118,18 +118,18 @@ class CommitService {
                 }
             }
 
-            // Processar arquivos deletados
+            // Process deleted files
             if (deletedFiles.length > 0) {
                 console.log(`${chalkGrey('  ├───')}${chalkPurple('◆')} ${chalkWhite('Processing deleted files...')}`);
 
                 for (const file of deletedFiles) {
                     try {
-                        // Usar git.add() para arquivos deletados também funciona
-                        // O git add automaticamente detecta que é uma deleção
+                        // Using git.add() for deleted files also works
+                        // git add automatically detects that it is a delete
                         await this.git.add(file);
                         console.log(`${chalkGrey('  ├───')}${chalkGreen('✓')} ${chalkWhite('Staged deletion:')}${chalkGrey(` ${file}`)}`);
                     } catch (error) {
-                        // Se git add falhar, tentar com git rm
+                        // If git add fails, try git rm
                         try {
                             await this.git.raw(['rm', '--cached', file]);
                             console.log(`${chalkGrey('  ├───')}${chalkGreen('✓')} ${chalkWhite('Removed from index:')}${chalkGrey(` ${file}`)}`);
@@ -141,7 +141,7 @@ class CommitService {
                 }
             }
 
-            // Verificar se algo foi alterado
+            // Check if something has changed
             const newStatus = await this.git.status();
             const totalChanges = newStatus.staged.length + newStatus.deleted.length;
 
@@ -151,13 +151,13 @@ class CommitService {
                 process.exit(0);
             }
 
-            // Agora realizamos o commit
+            // Now we commit
             console.log(`${chalkGrey('  │')}\n${chalkGrey('  ├─')}${chalkPurple('◆')} ${chalkWhite('Creating commit...')}`);
             try {
                 const commitResult = await this.git.commit(commitMessage);
                 console.log(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkGreen('✓')} ${chalkWhite('Commit created successfully!')}`);
 
-                // Exibir mais detalhes sobre o commit
+                // Show more details about the commit
                 if (commitResult && commitResult.commit) {
                     console.log(`${chalkGrey('        └─')}${chalkYellow('◆')} ${chalkWhite(`Commit hash: ${commitResult.commit}`)}\n`);
                 }
@@ -167,7 +167,7 @@ class CommitService {
                 console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖')} ${chalkWhite('Failed to create commit')}`);
                 console.error(`${chalkGrey('     └─')}${chalkRed('Error: ')} ${chalkWhite(commitError.message)}`);
 
-                // Tentar commit sem emoji
+                // Try to commit without emoji
                 try {
                     console.log(`${chalkGrey('  │')}\n${chalkGrey('  ├─')}${chalkPurple('◆')} ${chalkWhite('Trying alternative commit format...')}`);
                     const plainMessage = `${res.type}${res.path ? `(${res.path})` : ''}: ${res.message}`;
@@ -182,7 +182,7 @@ class CommitService {
         } catch (error) {
             console.error(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkRed('✖')} ${chalkWhite(`Error during git operations: ${error.message}`)}`);
 
-            // Exibir status do Git para diagnóstico
+            // Display Git status for diagnostics
             try {
                 const status = await this.git.status();
                 console.log(`${chalkGrey('  │')}\n${chalkGrey('  ├─')}${chalkPurple('ℹ')} ${chalkWhite('Current Git status:')}`);
@@ -194,7 +194,7 @@ class CommitService {
                 console.error(`${chalkGrey('  │  └─')}${chalkRed('✖')} ${chalkWhite('Could not get Git status')}`);
             }
 
-            // Sugerir comandos manuais
+            // Suggest manual commands
             console.log(`${chalkGrey('  │')}\n${chalkGrey('  └─')}${chalkPurple('ℹ')} ${chalkWhite('Try running manually:')}`);
             console.log(`${chalkGrey('     ├─')}${chalkWhite(`git add -A`)} ${chalkGrey('(to add all changes including deletions)')}`);
             console.log(`${chalkGrey('     └─')}${chalkWhite(`git commit -m '${commitMessage}'`)}`);

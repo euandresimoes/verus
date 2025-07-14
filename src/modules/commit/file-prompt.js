@@ -2,11 +2,10 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { chalkBgPurple, chalkGrey, chalkPurple, chalkRed, chalkWhite, chalkYellow } from '../../utils/console-colors.js';
 import { verifyConnection } from '../../utils/connection-verifier.js';
-import { getVerusVersion } from '../../utils/verus-version.js';
 
 export async function createFilePrompt(filesList) {
     const connectionStatus = await verifyConnection();
-    const verusVersion = getVerusVersion();
+    const verusVersion = `📦 ${chalkWhite('1.0.12')}`;
 
     console.log(`\n${chalkPurple('  ◆')} ${chalkBgPurple(` Welcome to Verus 👋 `)} ${chalkGrey('│')} ${connectionStatus} ${chalkGrey('│')} ${verusVersion}`);
 
