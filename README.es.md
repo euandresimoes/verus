@@ -2,6 +2,7 @@
   <a href="https://github.com/euandresimoes/verus">
       <img src="https://img.shields.io/badge/🚀-REPO-FFE162?style=for-the-badge&labelColor=000000"/>
   </a>
+  &nbsp;&nbsp;
   <a href="https://www.npmjs.com/package/verus-cli">
     <img src="https://img.shields.io/npm/v/verus-cli?label=%F0%9F%93%A6+NPM&labelColor=black&color=%233F0071&style=for-the-badge"/>
   </a>
