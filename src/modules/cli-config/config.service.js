@@ -10,12 +10,12 @@ export const configPath = os.platform() === 'win32'
 class ConfigService {
     async setApiKey(apiKey) {
         const dir = path.dirname(configPath);
-        // Verifica se o diretório existe, senão cria
+        // Checks if the directory exists, otherwise creates it
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
 
-        // Cria ou atualiza o arquivo com a API Key
+        // Create or update file with API Key
         const config = { apiKey };
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 
