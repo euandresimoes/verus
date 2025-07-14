@@ -10,7 +10,22 @@
   "bin": {
     "verus": "src/main.js"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "backend",
+    "cli",
+    "git",
+    "github",
+    "verus",
+    "verus-cli",
+    "javascript",
+    "tool",
+    "automation",
+    "ai",
+    "open-source",
+    "opensource",
+    "veruscli"
+  ],
   "author": "",
   "license": "ISC",
   "type": "module",
