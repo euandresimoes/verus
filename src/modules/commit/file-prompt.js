@@ -5,7 +5,7 @@ import { verifyConnection } from '../../utils/connection-verifier.js';
 
 export async function createFilePrompt(filesList) {
     const connectionStatus = await verifyConnection();
-    const verusVersion = `📦 ${chalkWhite('1.0.12')}`;
+    const verusVersion = `📦 ${chalkWhite('1.0.18')}`;
 
     console.log(`\n${chalkPurple('  ◆')} ${chalkBgPurple(` Welcome to Verus 👋 `)} ${chalkGrey('│')} ${connectionStatus} ${chalkGrey('│')} ${verusVersion}`);
 

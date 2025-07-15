@@ -26,7 +26,7 @@
     "opensource",
     "veruscli"
   ],
-  "author": "",
+  "author": "euandresimoes",
   "license": "ISC",
   "type": "module",
   "dependencies": {
