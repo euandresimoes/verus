@@ -47,8 +47,6 @@ Rules:
 }
 - Keep the message under 10 words.
 - Choose the commit type carefully based on the summary:
-  - Use "feat" for new features or enhancements.
-  - Use "fix" for bug fixes or corrections.
   - Use "docs" for documentation changes.
   - Use "style" for code style or formatting changes.
   - Use "refactor" for code restructuring without changing behavior.
@@ -57,7 +55,8 @@ Rules:
   - Use "chore" for maintenance tasks.
   - Use "ci" for continuous integration/configuration changes.
   - Use "init" only for the very first commit.
-- Do not default to "feat" or "fix"; choose the type that best fits the summary.
+  - Use "feat" for new features or enhancements, including creating new methods or adding new functionality, even if they include validations.
+  - Use "fix" only for bug fixes or correcting existing behavior.
 - Use only the emoji, type, and message fields — no extra text.
 - If this is the first commit of the project, use:
 {
