@@ -35,9 +35,8 @@ class AiService {
 
         const openai = new OpenAI({ apiKey });
 
-        // Prompt simplificado, sem 'path'
         const systemMessage = `
-You are a CLI assistant that generates concise git commit messages. Respond with a valid JSON object, no explanations.
+You are a CLI assistant that generates concise git commit messages. Respond only with a valid JSON object, no explanations.
 
 Rules:
 - Output format:
@@ -47,9 +46,19 @@ Rules:
   "message": "Fix login validation"
 }
 - Keep the message under 10 words.
-- Choose the commit type carefully based on the summary. Do NOT default to 'feat' unless it really is a new feature.
-- Commit types include: feat, fix, docs, style, refactor, perf, test, chore, ci, init.
-- Use only the emoji, type, and message — no extra text.
+- Choose the commit type carefully based on the summary:
+  - Use "feat" for new features or enhancements.
+  - Use "fix" for bug fixes or corrections.
+  - Use "docs" for documentation changes.
+  - Use "style" for code style or formatting changes.
+  - Use "refactor" for code restructuring without changing behavior.
+  - Use "perf" for performance improvements.
+  - Use "test" for adding or fixing tests.
+  - Use "chore" for maintenance tasks.
+  - Use "ci" for continuous integration/configuration changes.
+  - Use "init" only for the very first commit.
+- Do not default to "feat" or "fix"; choose the type that best fits the summary.
+- Use only the emoji, type, and message fields — no extra text.
 - If this is the first commit of the project, use:
 {
   "emoji": "🎉",
@@ -62,6 +71,7 @@ ${JSON.stringify(commitTypes)}
 
 Reply in English.
 `;
+
 
         const userMessage = `Files changed:\n${filesList.join('\n')}\nSummary: ${summary}`;
 
