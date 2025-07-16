@@ -18,7 +18,7 @@ const program = new Command();
 program
     .name('Verus')
     .description('Verus, the CLI tool that integrates AI to automatically generate commit messages for your Git repositories.')
-    .version('📦 1.0.12')
+    .version('📦 1.0.22')
     .option('-k, --key <apikey>', 'Set your OpnAI API key')
     .action((options) => {
         if (options.key) {

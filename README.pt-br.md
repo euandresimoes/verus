@@ -1,9 +1,22 @@
+<p align="center">
+  <a href="https://github.com/euandresimoes/verus">
+      <img src="https://img.shields.io/badge/🚀-REPO-FFE162?style=for-the-badge&labelColor=000000"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://www.npmjs.com/package/verus-cli">
+    <img src="https://img.shields.io/npm/v/verus-cli?label=%F0%9F%93%A6+NPM&labelColor=black&color=%233F0071&style=for-the-badge"/>
+  </a>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/github/stars/euandresimoes/verus?style=for-the-badge&label=%E2%AD%90%20STARS&labelColor=black&color=%23FB2576"/>
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/github/repo-size/euandresimoes/verus?style=for-the-badge&label=%F0%9F%9B%A0%EF%B8%8F%20SIZE&labelColor=black&color=%23332FD0"/>
+</p>
 
 ![Verus Banner](https://github.com/user-attachments/assets/5173589a-5dd8-4fd4-9536-7e039365acae)
 
 # 📦 Verus CLI - O Assistente de Commits com IA
 
-[🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md) | [📦 NPM](https://www.npmjs.com/package/verus-cli)
+[🇺🇸 EN](https://github.com/euandresimoes/verus/blob/master/README.md) | [🇪🇸 ES](https://github.com/euandresimoes/verus/blob/master/README.es.md) | [🇧🇷 PT-BR](https://github.com/euandresimoes/verus/blob/master/README.pt-br.md) 
 
 **Verus** é uma ferramenta de linha de comando (CLI) que integra inteligência artificial para gerar mensagens de commit automaticamente em seus repositórios Git. A partir de um breve resumo das alterações feitas nos arquivos, o Verus utiliza a API da OpenAI para sugerir uma mensagem formatada, como:
 

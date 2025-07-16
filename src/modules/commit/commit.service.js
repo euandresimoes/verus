@@ -32,8 +32,8 @@ class CommitService {
     }
 
     async create(res, filesList) {
-        const commitMessage = `${res.emoji} ${res.type}${res.path ? `(${res.path})` : ''}: ${res.message}`;
-        console.log(`${chalkGrey('  ├─')}${chalkPurple('◆')} ${res.emoji} ${chalkWhite(res.type)}${res.path ? `(${chalkWhite(res.path)})` : ''}: ${chalkWhite(res.message)}`);
+        const commitMessage = `${res.emoji} ${res.type}: ${res.message}`;
+        console.log(`${chalkGrey('  ├─')}${chalkPurple('◆')} ${res.emoji} ${chalkWhite(res.type)}: ${chalkWhite(res.message)}`);
         console.log(`${chalkGrey('  │')}`);
 
         // User confirmation
